@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
-import { UIProvider } from "@/context/UIContext";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -22,14 +20,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`${outfit.variable} ${outfit.className}`}>
-        <UIProvider>
-          <div style={{ display: 'flex' }}>
-            <Sidebar />
-            <div style={{ flex: 1, minHeight: '100vh', width: '100%' }}>
-              {children}
-            </div>
-          </div>
-        </UIProvider>
+        {children}
       </body>
     </html>
   );
