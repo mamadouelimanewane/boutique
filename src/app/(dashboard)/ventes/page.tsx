@@ -106,39 +106,54 @@ export default function Ventes() {
     };
 
     return (
-        <main style={{ marginLeft: 'var(--sidebar-width)', minHeight: '100vh', backgroundColor: 'var(--background)', transition: 'margin-left 0.3s' }}>
+        <main style={{ minHeight: '100vh', backgroundColor: '#f1f5f9', transition: 'margin-left 0.3s' }}>
             <Header title="Vente au Comptoir" />
 
-            <div style={{ padding: '1rem', maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ padding: '2rem', maxWidth: '1600px', margin: '0 auto' }}>
                 <div className="ventes-layout">
 
                     {/* Sélection de produits */}
-                    <div className="card products-panel">
+                    <div className="card products-panel" style={{ border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-                            <h3 style={{ fontSize: '1.125rem', fontWeight: '700' }}>Catalogue</h3>
-                            <div style={{ position: 'relative', flex: 1, minWidth: '200px' }}>
-                                <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748b' }} />
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                <div style={{ width: '8px', height: '24px', backgroundColor: 'var(--primary)', borderRadius: '4px' }}></div>
+                                <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#0f172a' }}>Catalogue Produits</h3>
+                            </div>
+                            <div style={{ position: 'relative', flex: 1, maxWidth: '400px', minWidth: '240px' }}>
+                                <Search size={20} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
                                 <input
                                     type="text"
-                                    placeholder="Rechercher..."
+                                    placeholder="Rechercher un article..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    style={{ padding: '0.6rem 1rem 0.6rem 2.5rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)', width: '100%', outline: 'none' }}
+                                    style={{
+                                        padding: '0.875rem 1rem 0.875rem 3.25rem',
+                                        borderRadius: '0.75rem',
+                                        border: '1px solid #e2e8f0',
+                                        width: '100%',
+                                        outline: 'none',
+                                        fontSize: '0.95rem',
+                                        backgroundColor: '#f8fafc',
+                                        transition: 'all 0.2s'
+                                    }}
                                 />
                             </div>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '1rem' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '1.25rem' }}>
                             {filteredProducts.map((product) => (
-                                <div key={product.id} className="card product-card" style={{ padding: '1rem', cursor: 'pointer', transition: 'all 0.2s', border: '1px solid var(--card-border)' }} onClick={() => addToCart(product)}>
-                                    <p style={{ fontSize: '0.7rem', color: 'var(--primary)', fontWeight: '700', textTransform: 'uppercase', marginBottom: '0.25rem' }}>{product.category}</p>
-                                    <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.85rem' }}>{product.name}</h4>
-                                    <p style={{ fontSize: '1rem', fontWeight: '800', color: 'var(--secondary)' }}>{product.price.toLocaleString()} FCFA</p>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem' }}>
-                                        <span style={{ fontSize: '0.65rem', color: product.stock < 20 ? 'var(--danger)' : '#64748b' }}>Stock: {product.stock}</span>
-                                        <button className="flex-center" style={{ width: '28px', height: '28px', borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--primary)', color: 'white', border: 'none' }}>
-                                            <Plus size={16} />
-                                        </button>
+                                <div key={product.id} className="card product-card" style={{ padding: '1.25rem', cursor: 'pointer', transition: 'all 0.3s', border: 'none', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -1px rgba(0,0,0,0.01)', backgroundColor: '#ffffff' }} onClick={() => addToCart(product)}>
+                                    <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between' }}>
+                                        <span style={{ fontSize: '0.7rem', color: 'var(--primary)', fontWeight: '800', textTransform: 'uppercase', backgroundColor: '#ecfdf5', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>{product.category}</span>
+                                        {product.stock < 20 && <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#ef4444' }}></span>}
+                                    </div>
+                                    <h4 style={{ fontWeight: '700', marginBottom: '0.5rem', fontSize: '1rem', color: '#1e293b' }}>{product.name}</h4>
+                                    <p style={{ fontSize: '1.25rem', fontWeight: '800', color: '#0f172a' }}>{product.price.toLocaleString()} <span style={{ fontSize: '0.75rem', fontWeight: '600' }}>FCFA</span></p>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1.5rem' }}>
+                                        <span style={{ fontSize: '0.75rem', fontWeight: '600', color: product.stock < 20 ? '#ef4444' : '#64748b' }}>Stock: {product.stock}</span>
+                                        <div className="flex-center" style={{ width: '32px', height: '32px', borderRadius: '0.5rem', backgroundColor: 'var(--primary)', color: 'white', boxShadow: '0 4px 6px -1px rgba(16, 185, 129, 0.4)' }}>
+                                            <Plus size={20} />
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -146,25 +161,35 @@ export default function Ventes() {
                     </div>
 
                     {/* Panier et Encaissement */}
-                    <div className="card cart-panel">
+                    <div className="card cart-panel" style={{ border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column' }}>
                         {/* Client Selection Section */}
-                        <div style={{ marginBottom: '1.5rem', padding: '1rem', backgroundColor: '#f8fafc', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                        <div style={{ marginBottom: '1.5rem', padding: '1.25rem', backgroundColor: '#f8fafc', borderRadius: '1rem', border: '1px solid #e2e8f0' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    <User size={18} color="var(--primary)" />
-                                    <span style={{ fontWeight: '700', fontSize: '0.9rem' }}>Client :</span>
+                                    <Users size={18} style={{ color: 'var(--primary)' }} />
+                                    <span style={{ fontWeight: '800', fontSize: '1rem', color: '#1e293b' }}>Client</span>
                                 </div>
                                 <button
                                     onClick={() => setShowClientModal(true)}
-                                    style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.8rem', fontWeight: '600' }}
+                                    style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.875rem', fontWeight: '700' }}
                                 >
-                                    <UserPlus size={14} /> Nouveau
+                                    <UserPlus size={16} /> Nouveau
                                 </button>
                             </div>
                             <select
                                 value={selectedClient.id}
                                 onChange={(e) => setSelectedClient(clients.find(c => c.id === e.target.value) || initialClients[0])}
-                                style={{ width: '100%', padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)', outline: 'none', fontSize: '1rem', fontWeight: '600' }}
+                                style={{
+                                    width: '100%',
+                                    padding: '0.875rem',
+                                    borderRadius: '0.75rem',
+                                    border: '1px solid #d1d5db',
+                                    outline: 'none',
+                                    fontSize: '1rem',
+                                    fontWeight: '700',
+                                    backgroundColor: 'white',
+                                    color: '#0f172a'
+                                }}
                             >
                                 {clients.map(c => (
                                     <option key={c.id} value={c.id}>{c.name} {c.phone !== '-' ? `(${c.phone})` : ''}</option>
@@ -172,25 +197,30 @@ export default function Ventes() {
                             </select>
                         </div>
 
-                        <h3 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1.5rem' }}>Articles ({cart.length})</h3>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
+                            <div style={{ width: '8px', height: '24px', backgroundColor: 'var(--primary)', borderRadius: '4px' }}></div>
+                            <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#0f172a' }}>Articles ({cart.length})</h3>
+                        </div>
 
-                        <div style={{ flex: 1, marginBottom: '2rem', maxHeight: '400px', overflowY: 'auto' }}>
+                        <div style={{ flex: 1, marginBottom: '2rem', maxHeight: '420px', overflowY: 'auto', paddingRight: '0.5rem' }}>
                             {cart.length === 0 ? (
-                                <div style={{ textAlign: 'center', padding: '2rem', color: '#94a3b8' }}>
-                                    <ShoppingBag size={48} style={{ margin: '0 auto 1rem', opacity: 0.2 }} />
-                                    <p>Panier vide</p>
+                                <div style={{ textAlign: 'center', padding: '4rem 2rem', color: '#94a3b8' }}>
+                                    <ShoppingBag size={64} style={{ margin: '0 auto 1.5rem', opacity: 0.1 }} />
+                                    <p style={{ fontWeight: '600' }}>Votre panier est vide</p>
                                 </div>
                             ) : (
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                                     {cart.map((item) => (
-                                        <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '0.75rem', borderBottom: '1px solid var(--card-border)' }}>
+                                        <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '1rem', borderBottom: '1px solid #f1f5f9' }}>
                                             <div style={{ flex: 1 }}>
-                                                <p style={{ fontWeight: '600', fontSize: '0.9rem' }}>{item.name}</p>
-                                                <p style={{ fontSize: '0.75rem', color: '#64748b' }}>{item.price.toLocaleString()} x {item.quantity}</p>
+                                                <p style={{ fontWeight: '700', fontSize: '0.95rem', color: '#1e293b' }}>{item.name}</p>
+                                                <p style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: '500' }}>{item.price.toLocaleString()} x {item.quantity}</p>
                                             </div>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                                <span style={{ fontWeight: '700', fontSize: '0.9rem' }}>{(item.price * item.quantity).toLocaleString()}</span>
-                                                <Trash2 size={16} color="var(--danger)" style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); removeFromCart(item.id); }} />
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                                <span style={{ fontWeight: '800', fontSize: '1rem', color: '#0f172a' }}>{(item.price * item.quantity).toLocaleString()}</span>
+                                                <button onClick={() => removeFromCart(item.id)} style={{ padding: '0.5rem', background: 'none', border: 'none', cursor: 'pointer', color: '#ef4444' }}>
+                                                    <Trash2 size={18} />
+                                                </button>
                                             </div>
                                         </div>
                                     ))}
@@ -198,10 +228,10 @@ export default function Ventes() {
                             )}
                         </div>
 
-                        <div style={{ backgroundColor: '#f1f5f9', padding: '1.25rem', borderRadius: 'var(--radius-lg)', border: '1px solid var(--card-border)' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem', fontSize: '1.25rem' }}>
-                                <span style={{ fontWeight: '700' }}>TOTAL</span>
-                                <span style={{ fontWeight: '900', color: 'var(--primary)' }}>{total.toLocaleString()} FCFA</span>
+                        <div style={{ backgroundColor: '#0f172a', padding: '1.75rem', borderRadius: '1.25rem', color: 'white', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.75rem' }}>
+                                <span style={{ fontWeight: '600', color: '#94a3b8', fontSize: '1rem' }}>TOTAL À PAYER</span>
+                                <span style={{ fontWeight: '900', color: 'var(--primary)', fontSize: '1.75rem' }}>{total.toLocaleString()} FCFA</span>
                             </div>
 
                             <div className="payment-grid">
@@ -209,25 +239,30 @@ export default function Ventes() {
                                     className="btn btn-primary payment-btn"
                                     disabled={cart.length === 0 || isSuccess}
                                     onClick={() => openPayment('cash')}
+                                    style={{ background: 'var(--primary)', border: 'none', color: 'white' }}
                                 >
-                                    <Calculator size={18} />
-                                    Espèces
+                                    <Calculator size={20} style={{ marginBottom: '4px' }} />
+                                    <span>Espèces</span>
                                 </button>
 
                                 <button
-                                    className="btn payment-btn wave-btn"
+                                    className="btn payment-btn"
                                     disabled={cart.length === 0 || isSuccess}
                                     onClick={() => openPayment('wave')}
+                                    style={{ backgroundColor: '#1da1f2', border: 'none', color: 'white' }}
                                 >
-                                    Wave
+                                    <Smartphone size={20} style={{ marginBottom: '4px' }} />
+                                    <span>Wave</span>
                                 </button>
 
                                 <button
-                                    className="btn payment-btn om-btn"
+                                    className="btn payment-btn"
                                     disabled={cart.length === 0 || isSuccess}
                                     onClick={() => openPayment('om')}
+                                    style={{ backgroundColor: '#FF7900', border: 'none', color: 'white' }}
                                 >
-                                    O. Money
+                                    <Smartphone size={20} style={{ marginBottom: '4px' }} />
+                                    <span>Orange</span>
                                 </button>
                             </div>
                         </div>

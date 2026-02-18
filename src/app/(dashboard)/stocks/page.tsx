@@ -59,51 +59,60 @@ export default function Stocks() {
     };
 
     return (
-        <main style={{ marginLeft: 'var(--sidebar-width)', minHeight: '100vh', backgroundColor: 'var(--background)', transition: 'margin-left 0.3s' }}>
+        <main style={{ minHeight: '100vh', backgroundColor: '#f1f5f9', transition: 'margin-left 0.3s' }}>
             <Header title="Gestion des Stocks" />
 
-            <div style={{ padding: '1.5rem', maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto' }}>
 
                 {/* Résumé de l'inventaire */}
-                <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
-                    <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <div className="flex-center" style={{ width: '48px', height: '48px', backgroundColor: '#e0f2fe', color: '#0ea5e9', borderRadius: 'var(--radius-md)' }}>
-                            <Box size={24} />
+                <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+                    <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', border: 'none', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+                        <div className="flex-center" style={{ width: '56px', height: '56px', backgroundColor: '#e0f2fe', color: '#0ea5e9', borderRadius: '1rem' }}>
+                            <Box size={28} />
                         </div>
                         <div>
-                            <p style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: '600' }}>Articles Totaux</p>
-                            <h3 style={{ fontSize: '1.5rem', fontWeight: '800' }}>{totalItems}</h3>
+                            <p style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: '700' }}>Articles Totaux</p>
+                            <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#0f172a' }}>{totalItems}</h3>
                         </div>
                     </div>
-                    <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <div className="flex-center" style={{ width: '48px', height: '48px', backgroundColor: '#fef2f2', color: 'var(--danger)', borderRadius: 'var(--radius-md)' }}>
-                            <AlertCircle size={24} />
+                    <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', border: 'none', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+                        <div className="flex-center" style={{ width: '56px', height: '56px', backgroundColor: '#fef2f2', color: '#ef4444', borderRadius: '1rem' }}>
+                            <AlertCircle size={28} />
                         </div>
                         <div>
-                            <p style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: '600' }}>Stock Faible</p>
-                            <h3 style={{ fontSize: '1.5rem', fontWeight: '800' }}>{lowStockItems}</h3>
+                            <p style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: '700' }}>Stock Faible</p>
+                            <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#ef4444' }}>{lowStockItems}</h3>
                         </div>
                     </div>
-                    <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <div className="flex-center" style={{ width: '48px', height: '48px', backgroundColor: '#ecfdf5', color: 'var(--primary)', borderRadius: 'var(--radius-md)' }}>
-                            <TrendingUp size={24} />
+                    <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', border: 'none', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+                        <div className="flex-center" style={{ width: '56px', height: '56px', backgroundColor: '#ecfdf5', color: '#10b981', borderRadius: '1rem' }}>
+                            <TrendingUp size={28} />
                         </div>
                         <div>
-                            <p style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: '600' }}>Valeur Stock</p>
-                            <h3 style={{ fontSize: '1.5rem', fontWeight: '800' }}>{totalValue.toLocaleString()} FCFA</h3>
+                            <p style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: '700' }}>Valeur Stock</p>
+                            <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#0f172a' }}>{totalValue.toLocaleString()} <span style={{ fontSize: '0.875rem' }}>FCFA</span></h3>
                         </div>
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-                    <div style={{ position: 'relative', flex: 1, minWidth: '300px' }}>
-                        <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748b' }} />
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1.5rem' }}>
+                    <div style={{ position: 'relative', flex: 1, minWidth: '300px', maxWidth: '500px' }}>
+                        <Search size={20} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
                         <input
                             type="text"
                             placeholder="Rechercher par nom ou SKU..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)', outline: 'none' }}
+                            style={{
+                                width: '100%',
+                                padding: '0.875rem 1rem 0.875rem 3.25rem',
+                                borderRadius: '0.75rem',
+                                border: '1px solid #e2e8f0',
+                                outline: 'none',
+                                fontSize: '0.95rem',
+                                backgroundColor: 'white',
+                                fontWeight: '500'
+                            }}
                         />
                     </div>
                     <button className="btn btn-primary" onClick={() => { setEditingItem(null); setShowModal(true); }}>
@@ -111,54 +120,56 @@ export default function Stocks() {
                     </button>
                 </div>
 
-                <div className="card" style={{ padding: 0, overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
-                        <thead style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid var(--card-border)' }}>
+                <div className="card" style={{ padding: 0, overflowX: 'auto', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '1000px' }}>
+                        <thead style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #f1f5f9' }}>
                             <tr>
-                                <th style={{ padding: '1rem 1.5rem', fontSize: '0.875rem', color: '#64748b' }}>Article</th>
-                                <th style={{ padding: '1rem 1.5rem', fontSize: '0.875rem', color: '#64748b' }}>SKU</th>
-                                <th style={{ padding: '1rem 1.5rem', fontSize: '0.875rem', color: '#64748b' }}>Catégorie</th>
-                                <th style={{ padding: '1rem 1.5rem', fontSize: '0.875rem', color: '#64748b' }}>Stock</th>
-                                <th style={{ padding: '1rem 1.5rem', fontSize: '0.875rem', color: '#64748b' }}>Prix</th>
-                                <th style={{ padding: '1rem 1.5rem', fontSize: '0.875rem', color: '#64748b' }}>Ajuster</th>
-                                <th style={{ padding: '1rem 1.5rem', fontSize: '0.875rem', color: '#64748b' }}>Actions</th>
+                                <th style={{ padding: '1.25rem 1.5rem', fontSize: '0.875rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Article</th>
+                                <th style={{ padding: '1.25rem 1.5rem', fontSize: '0.875rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>SKU</th>
+                                <th style={{ padding: '1.25rem 1.5rem', fontSize: '0.875rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Catégorie</th>
+                                <th style={{ padding: '1.25rem 1.5rem', fontSize: '0.875rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Stock actuel</th>
+                                <th style={{ padding: '1.25rem 1.5rem', fontSize: '0.875rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Prix Unitaire</th>
+                                <th style={{ padding: '1.25rem 1.5rem', fontSize: '0.875rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Ajuster</th>
+                                <th style={{ padding: '1.25rem 1.5rem', fontSize: '0.875rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredInventory.map((item) => (
-                                <tr key={item.id} style={{ borderBottom: '1px solid var(--card-border)' }}>
-                                    <td style={{ padding: '1rem 1.5rem' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                            <div className="flex-center" style={{ width: '36px', height: '36px', backgroundColor: '#f1f5f9', borderRadius: 'var(--radius-md)', color: 'var(--primary)' }}>
-                                                <Package size={18} />
+                                <tr key={item.id} style={{ borderBottom: '1px solid #f1f5f9', transition: 'background-color 0.2s' }} className="hover:bg-slate-50/50">
+                                    <td style={{ padding: '1.25rem 1.5rem' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                            <div className="flex-center" style={{ width: '40px', height: '40px', backgroundColor: '#f1f5f9', borderRadius: '0.75rem', color: '#0f172a' }}>
+                                                <Package size={20} />
                                             </div>
-                                            <span style={{ fontWeight: '600' }}>{item.name}</span>
+                                            <span style={{ fontWeight: '700', color: '#1e293b' }}>{item.name}</span>
                                         </div>
                                     </td>
-                                    <td style={{ padding: '1rem 1.5rem', fontSize: '0.875rem', color: '#64748b' }}>{item.sku}</td>
-                                    <td style={{ padding: '1rem 1.5rem' }}>
-                                        <span style={{ padding: '0.25rem 0.6rem', borderRadius: '9999px', backgroundColor: '#f1f5f9', fontSize: '0.75rem', fontWeight: '600' }}>{item.category}</span>
+                                    <td style={{ padding: '1.25rem 1.5rem', fontSize: '0.875rem', color: '#64748b', fontWeight: '600' }}>{item.sku}</td>
+                                    <td style={{ padding: '1.25rem 1.5rem' }}>
+                                        <span style={{ padding: '0.35rem 0.75rem', borderRadius: '2rem', backgroundColor: '#f1f5f9', color: '#475569', fontSize: '0.75rem', fontWeight: '700 border: 1px solid #e2e8f0' }}>{item.category}</span>
                                     </td>
-                                    <td style={{ padding: '1rem 1.5rem' }}>
+                                    <td style={{ padding: '1.25rem 1.5rem' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                            <span style={{ fontWeight: '800', fontSize: '1rem', color: item.stock <= item.minStock ? 'var(--danger)' : 'inherit' }}>{item.stock}</span>
-                                            {item.stock <= item.minStock && <AlertCircle size={14} color="var(--danger)" />}
+                                            <span style={{ fontWeight: '900', fontSize: '1.125rem', color: item.stock <= item.minStock ? '#ef4444' : '#0f172a' }}>{item.stock}</span>
+                                            {item.stock <= item.minStock && (
+                                                <span style={{ backgroundColor: '#fef2f2', color: '#ef4444', padding: '0.125rem 0.375rem', borderRadius: '4px', fontSize: '0.65rem', fontWeight: '800' }}>BAS</span>
+                                            )}
                                         </div>
                                     </td>
-                                    <td style={{ padding: '1rem 1.5rem', fontWeight: '700' }}>{item.price.toLocaleString()} FCFA</td>
-                                    <td style={{ padding: '1rem 1.5rem' }}>
-                                        <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                            <button onClick={() => updateStock(item.id, -1)} className="flex-center" style={{ width: '28px', height: '28px', borderRadius: '50%', border: '1px solid #e2e8f0', background: 'white', cursor: 'pointer' }}>
-                                                <MinusCircle size={16} color="#ef4444" />
+                                    <td style={{ padding: '1.25rem 1.5rem', fontWeight: '800', color: '#0f172a' }}>{item.price.toLocaleString()} FCFA</td>
+                                    <td style={{ padding: '1.25rem 1.5rem' }}>
+                                        <div style={{ display: 'flex', gap: '0.75rem' }}>
+                                            <button onClick={() => updateStock(item.id, -1)} className="flex-center" style={{ width: '32px', height: '32px', borderRadius: '0.5rem', border: '1px solid #e2e8f0', background: 'white', cursor: 'pointer', transition: 'all 0.2s' }}>
+                                                <MinusCircle size={18} color="#ef4444" />
                                             </button>
-                                            <button onClick={() => updateStock(item.id, 1)} className="flex-center" style={{ width: '28px', height: '28px', borderRadius: '50%', border: '1px solid #e2e8f0', background: 'white', cursor: 'pointer' }}>
-                                                <PlusCircle size={16} color="#10b981" />
+                                            <button onClick={() => updateStock(item.id, 1)} className="flex-center" style={{ width: '32px', height: '32px', borderRadius: '0.5rem', border: '1px solid #e2e8f0', background: 'white', cursor: 'pointer', transition: 'all 0.2s' }}>
+                                                <PlusCircle size={18} color="#10b981" />
                                             </button>
                                         </div>
                                     </td>
-                                    <td style={{ padding: '1rem 1.5rem' }}>
-                                        <button onClick={() => { setEditingItem(item); setShowModal(true); }} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--primary)', fontWeight: '600', fontSize: '0.875rem' }}>
-                                            Modifier
+                                    <td style={{ padding: '1.25rem 1.5rem' }}>
+                                        <button onClick={() => { setEditingItem(item); setShowModal(true); }} style={{ backgroundColor: '#f1f5f9', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', cursor: 'pointer', color: '#0f172a', fontWeight: '700', fontSize: '0.875rem' }}>
+                                            Détails
                                         </button>
                                     </td>
                                 </tr>

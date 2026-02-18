@@ -3,10 +3,40 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
+  --foreground-rgb: 15, 23, 42;
+  /* slate-900 */
+  --background-start-rgb: 248, 250, 252;
+  /* slate-50 */
   --background-end-rgb: 255, 255, 255;
   --header-height: 80px;
+  --sidebar-width: 280px;
+
+  /* Brand Colors */
+  --primary: #10b981;
+  /* emerald-500 */
+  --primary-hover: #059669;
+  /* emerald-600 */
+  --accent: #f59e0b;
+  /* amber-500 */
+  --danger: #ef4444;
+  /* red-500 */
+  --success: #10b981;
+
+  /* Sidebar - Dark Mode by default requested */
+  --sidebar-bg: #0f172a;
+  /* slate-900 */
+  --sidebar-text: #f8fafc;
+  /* slate-50 */
+  --sidebar-text-muted: #94a3b8;
+  /* slate-400 */
+  --sidebar-hover: rgba(255, 255, 255, 0.1);
+  --sidebar-active: #10b981;
+
+  /* Dashboard UI */
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --bg-soft: #f1f5f9;
+  --foreground: #0f172a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,29 +49,54 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 overflow-x-hidden;
+    @apply bg-slate-100 text-slate-900 overflow-x-hidden;
+    background-color: #f1f5f9;
+    /* Increased contrast from slate-50 */
   }
 }
 
 @layer components {
+  .sidebar-link {
+    @apply transition-all duration-200;
+  }
+
+  .sidebar-link:hover {
+    background-color: var(--sidebar-hover);
+    @apply shadow-sm;
+  }
+
+  .sidebar-link.active {
+    background-color: var(--sidebar-active);
+    color: white !important;
+  }
+
+  .hover-danger:hover {
+    @apply bg-rose-500/10;
+    color: var(--danger) !important;
+  }
+
   .btn {
-    @apply inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-300 transform active:scale-95;
+    @apply inline-flex items-center justify-center rounded-xl font-bold transition-all duration-300 transform active:scale-95 px-5 py-3;
   }
 
   .btn-primary {
-    @apply bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-500/30 hover:-translate-y-1;
+    @apply bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-500/40 hover:-translate-y-1;
   }
 
   .btn-outline {
-    @apply border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white;
+    @apply border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold;
   }
 
   .glass {
-    @apply bg-white/70 backdrop-blur-lg border border-white/50;
+    @apply bg-white/90 backdrop-blur-xl border border-white;
   }
 
   .card {
-    @apply bg-white p-6 rounded-2xl shadow-sm border border-slate-100 transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+    @apply bg-white p-6 rounded-2xl shadow-sm border border-slate-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .card-header {
+    @apply font-bold text-slate-800 border-b border-slate-100 pb-4 mb-4;
   }
 }
 

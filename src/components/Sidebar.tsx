@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Store, Package, ShoppingCart, Users, FileText, Settings, LogOut, X } from 'lucide-react';
 import { useUI } from '@/context/UIContext';
 
@@ -15,6 +16,7 @@ const menuItems = [
 
 export default function Sidebar() {
     const { isSidebarOpen, setSidebarOpen } = useUI();
+    const pathname = usePathname();
 
     return (
         <>
@@ -26,7 +28,7 @@ export default function Sidebar() {
                 />
             )}
 
-            <div className={`glass sidebar-container ${isSidebarOpen ? 'mobile-open' : ''}`} style={{
+            <div className={`sidebar-container ${isSidebarOpen ? 'mobile-open' : ''}`} style={{
                 width: 'var(--sidebar-width)',
                 height: '100vh',
                 position: 'fixed',
@@ -37,26 +39,27 @@ export default function Sidebar() {
                 padding: '1.5rem',
                 zIndex: 100,
                 transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                backgroundColor: 'var(--card-bg)'
+                backgroundColor: 'var(--sidebar-bg)',
+                borderRight: '1px solid rgba(255, 255, 255, 0.05)'
             }}>
                 <div style={{ marginBottom: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                         <div className="flex-center" style={{
                             width: '40px',
                             height: '40px',
-                            backgroundColor: 'var(--primary)',
+                            backgroundColor: 'white',
                             borderRadius: 'var(--radius-md)',
-                            color: 'white'
+                            color: 'var(--sidebar-bg)'
                         }}>
                             <Store size={24} />
                         </div>
-                        <h1 style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--primary)' }}>DiaraBi</h1>
+                        <h1 style={{ fontSize: '1.5rem', fontWeight: '800', color: 'white' }}>DiaraBi</h1>
                     </div>
 
                     <button
                         className="mobile-only-flex"
                         onClick={() => setSidebarOpen(false)}
-                        style={{ background: 'none', border: 'none', color: 'var(--foreground)', cursor: 'pointer', padding: '0.5rem' }}
+                        style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', padding: '0.5rem' }}
                     >
                         <X size={24} />
                     </button>
@@ -64,38 +67,41 @@ export default function Sidebar() {
 
                 <nav style={{ flex: 1, overflowY: 'auto' }}>
                     <ul style={{ listStyle: 'none' }}>
-                        {menuItems.map((item) => (
-                            <li key={item.label} style={{ marginBottom: '0.5rem' }}>
-                                <Link href={item.href} style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '0.75rem',
-                                    padding: '0.75rem 1rem',
-                                    borderRadius: 'var(--radius-md)',
-                                    color: 'var(--foreground)',
-                                    textDecoration: 'none',
-                                    fontWeight: '500',
-                                    transition: 'all 0.2s'
-                                }} className="nav-link">
-                                    <item.icon size={20} />
-                                    {item.label}
-                                </Link>
-                            </li>
-                        ))}
+                        {menuItems.map((item) => {
+                            const isActive = pathname === item.href;
+                            return (
+                                <li key={item.label} style={{ marginBottom: '0.25rem' }}>
+                                    <Link href={item.href} style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.75rem',
+                                        padding: '0.875rem 1rem',
+                                        borderRadius: 'var(--radius-md)',
+                                        color: 'var(--sidebar-text)',
+                                        textDecoration: 'none',
+                                        fontWeight: '500',
+                                        transition: 'all 0.2s'
+                                    }} className={`sidebar-link ${isActive ? 'active' : ''}`}>
+                                        <item.icon size={20} />
+                                        {item.label}
+                                    </Link>
+                                </li>
+                            );
+                        })}
                     </ul>
                 </nav>
 
-                <div style={{ borderTop: '1px solid var(--card-border)', paddingTop: '1rem' }}>
+                <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '1rem', marginTop: '1rem' }}>
                     <Link href="/settings" style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.75rem',
-                        padding: '0.75rem 1rem',
-                        color: 'var(--foreground)',
+                        padding: '0.875rem 1rem',
+                        color: 'var(--sidebar-text)',
                         textDecoration: 'none',
-                        marginBottom: '0.5rem',
+                        marginBottom: '0.25rem',
                         borderRadius: 'var(--radius-md)'
-                    }} className="nav-link">
+                    }} className="sidebar-link">
                         <Settings size={20} />
                         Paramètres
                     </Link>
@@ -105,7 +111,7 @@ export default function Sidebar() {
                             display: 'flex',
                             alignItems: 'center',
                             gap: '0.75rem',
-                            padding: '0.75rem 1rem',
+                            padding: '0.875rem 1rem',
                             color: 'var(--danger)',
                             background: 'none',
                             border: 'none',
@@ -113,7 +119,7 @@ export default function Sidebar() {
                             width: '100%',
                             textAlign: 'left',
                             borderRadius: 'var(--radius-md)'
-                        }} className="nav-link">
+                        }} className="sidebar-link hover-danger">
                         <LogOut size={20} />
                         Déconnexion
                     </button>
