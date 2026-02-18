@@ -46,67 +46,89 @@ export default function Settings() {
     };
 
     const renderContent = () => {
+        const cardHeaderStyle = { fontSize: '1.25rem', fontWeight: '800' as const, color: '#0f172a', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '2px solid #f1f5f9' };
+        const labelStyle = { fontSize: '0.875rem', fontWeight: '700' as const, color: '#64748b', marginBottom: '0.5rem' };
+        const inputStyle = { padding: '0.875rem', borderRadius: '0.75rem', border: '1px solid #e2e8f0', outline: 'none', backgroundColor: '#f8fafc', fontSize: '1rem', transition: 'all 0.2s' };
+
         switch (activeSection) {
             case 'profile':
                 return (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                        <div className="card">
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid var(--card-border)' }}>
-                                <h2 style={{ fontSize: '1.125rem', fontWeight: '700' }}>Profil</h2>
-                                <button className="btn btn-primary" onClick={handleSave} disabled={loading} style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>
-                                    {saved ? <><Check size={14} /> Fait</> : <><Save size={14} /> {loading ? '...' : 'Sauver'}</>}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                        <div className="card" style={{ border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                                <h2 style={cardHeaderStyle}>Informations Personnelles</h2>
+                                <button className="btn btn-primary" onClick={handleSave} disabled={loading}>
+                                    {saved ? <><Check size={18} /> Enregistré</> : <><Save size={18} /> {loading ? 'En cours...' : 'Sauvegarder'}</>}
                                 </button>
                             </div>
-                            <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
-                                    <div className="flex-center" style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#f1f5f9', border: '2px solid var(--primary)' }}>
-                                        <User size={40} color="var(--primary)" />
+                            <div style={{ display: 'flex', gap: '2.5rem', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+                                    <div className="flex-center" style={{ width: '120px', height: '120px', borderRadius: '2rem', backgroundColor: '#f1f5f9', border: '3px solid white', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
+                                        <User size={64} style={{ color: 'var(--primary)' }} />
                                     </div>
-                                    <button style={{ fontSize: '0.75rem', color: 'var(--primary)', border: 'none', background: 'none', cursor: 'pointer', fontWeight: '600' }}>Photo</button>
+                                    <button style={{ fontSize: '0.875rem', color: 'var(--primary)', border: 'none', background: 'none', cursor: 'pointer', fontWeight: '800' }}>Modifier la photo</button>
                                 </div>
-                                <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', width: '100%' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                                        <label style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748b' }}>Prénom</label>
-                                        <input type="text" value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} style={{ padding: '0.6rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)', outline: 'none' }} />
+                                <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <label style={labelStyle}>Prénom</label>
+                                        <input type="text" value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} style={inputStyle} />
                                     </div>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                                        <label style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748b' }}>Nom</label>
-                                        <input type="text" value={formData.lastName} onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} style={{ padding: '0.6rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)', outline: 'none' }} />
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <label style={labelStyle}>Nom</label>
+                                        <input type="text" value={formData.lastName} onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} style={inputStyle} />
+                                    </div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gridColumn: 'span 2' }}>
+                                        <label style={labelStyle}>Adresse Email</label>
+                                        <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} style={inputStyle} />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="card" style={{ border: '1px solid #fecaca' }}>
-                            <h2 style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--danger)', marginBottom: '0.5rem' }}>Danger</h2>
-                            <button className="btn" style={{ padding: '0.5rem', backgroundColor: '#fee2e2', color: 'var(--danger)', border: '1px solid #fecaca', fontSize: '0.8rem', width: '100%' }}>Supprimer compte</button>
+                        <div className="card" style={{ border: '2px dashed #fee2e2', backgroundColor: '#fffafb' }}>
+                            <h2 style={{ fontSize: '1.125rem', fontWeight: '800', color: '#ef4444', marginBottom: '0.5rem' }}>Zone de danger</h2>
+                            <p style={{ fontSize: '0.875rem', color: '#94a3b8', marginBottom: '1.5rem', fontWeight: '500' }}>Une fois votre compte supprimé, toutes vos données seront définitivement effacées.</p>
+                            <button className="btn" style={{ padding: '0.75rem', backgroundColor: '#ef4444', color: 'white', border: 'none', fontSize: '0.9rem', fontWeight: '700', width: 'fit-content' }}>Supprimer mon compte</button>
                         </div>
                     </div>
                 );
 
             case 'security':
                 return (
-                    <div className="card">
-                        <h2 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid var(--card-border)' }}>Sécurité</h2>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                            <div>
-                                <h4 style={{ fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.75rem' }}>Mot de passe</h4>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                    <input type="password" placeholder="Actuel" style={{ padding: '0.6rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)', outline: 'none' }} />
-                                    <input type="password" placeholder="Nouveau" style={{ padding: '0.6rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)', outline: 'none' }} />
-                                    <button className="btn btn-primary" style={{ padding: '0.6rem', fontSize: '0.8rem' }}>Modifier</button>
+                    <div className="card" style={{ border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)' }}>
+                        <h2 style={cardHeaderStyle}>Sécurité du Compte</h2>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+                            <div style={{ maxWidth: '500px' }}>
+                                <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#1e293b', marginBottom: '1.25rem' }}>Modifier le mot de passe</h4>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                    <input type="password" placeholder="Mot de passe actuel" style={inputStyle} />
+                                    <input type="password" placeholder="Nouveau mot de passe" style={inputStyle} />
+                                    <input type="password" placeholder="Confirmer le nouveau mot de passe" style={inputStyle} />
+                                    <button className="btn btn-primary" style={{ padding: '0.875rem', marginTop: '0.5rem' }}>Mettre à jour le mot de passe</button>
                                 </div>
                             </div>
-                            <div style={{ padding: '1rem', backgroundColor: '#f8fafc', borderRadius: 'var(--radius-md)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
-                                <Shield size={20} color="var(--primary)" />
+                            <div style={{ padding: '1.5rem', backgroundColor: '#f8fafc', borderRadius: '1rem', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1.5rem' }}>
+                                <div style={{ width: '48px', height: '48px', backgroundColor: '#ecfdf5', borderRadius: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <Shield size={24} style={{ color: 'var(--primary)' }} />
+                                </div>
                                 <div style={{ flex: 1 }}>
-                                    <p style={{ fontWeight: '600', fontSize: '0.85rem' }}>2FA</p>
-                                    <p style={{ fontSize: '0.75rem', color: '#64748b' }}>Double authentification</p>
+                                    <p style={{ fontWeight: '800', fontSize: '1rem', color: '#0f172a' }}>Double Authentification (2FA)</p>
+                                    <p style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: '500' }}>Ajoutez une couche de sécurité supplémentaire à votre compte.</p>
                                 </div>
                                 <button
                                     onClick={() => handleToggle('twoFactor')}
-                                    style={{ padding: '0.4rem 0.8rem', fontSize: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)', backgroundColor: toggles.twoFactor ? 'var(--primary)' : 'white', color: toggles.twoFactor ? 'white' : 'inherit', fontWeight: '600', cursor: 'pointer' }}
+                                    style={{
+                                        padding: '0.6rem 1.25rem',
+                                        fontSize: '0.875rem',
+                                        borderRadius: '0.75rem',
+                                        border: 'none',
+                                        backgroundColor: toggles.twoFactor ? 'var(--primary)' : '#e2e8f0',
+                                        color: toggles.twoFactor ? 'white' : '#475569',
+                                        fontWeight: '800',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s'
+                                    }}
                                 >
-                                    {toggles.twoFactor ? 'ON' : 'OFF'}
+                                    {toggles.twoFactor ? 'ACTIVÉ' : 'DÉSACTIVÉ'}
                                 </button>
                             </div>
                         </div>
@@ -115,44 +137,53 @@ export default function Settings() {
 
             case 'notifications':
                 return (
-                    <div className="card">
-                        <h2 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid var(--card-border)' }}>Notifications</h2>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <p style={{ fontSize: '0.9rem', fontWeight: '600' }}>Résumé par Email</p>
-                                <div onClick={() => handleToggle('emailNotifs')} style={{ width: '40px', height: '20px', backgroundColor: toggles.emailNotifs ? 'var(--primary)' : '#cbd5e1', borderRadius: '10px', position: 'relative', cursor: 'pointer', transition: '0.2s' }}>
-                                    <div style={{ width: '16px', height: '16px', backgroundColor: 'white', borderRadius: '50%', position: 'absolute', top: '2px', left: toggles.emailNotifs ? '22px' : '2px', transition: '0.2s' }}></div>
+                    <div className="card" style={{ border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)' }}>
+                        <h2 style={cardHeaderStyle}>Préférences de Notification</h2>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                            {[
+                                { id: 'emailNotifs', label: 'Rapports journaliers par email', desc: 'Recevez un résumé de vos ventes chaque soir.' },
+                                { id: 'stockAlerts', label: 'Alertes de stock critique', desc: 'Soyez notifié dès qu\'un produit atteint son seuil minimal.' },
+                                { id: 'autoBackup', label: 'Sauvegarde automatique', desc: 'Sauvegarder vos données sur le cloud chaque semaine.' }
+                            ].map((item) => (
+                                <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', borderRadius: '0.75rem', backgroundColor: '#f8fafc', border: '1px solid #f1f5f9' }}>
+                                    <div>
+                                        <p style={{ fontSize: '1rem', fontWeight: '800', color: '#1e293b' }}>{item.label}</p>
+                                        <p style={{ fontSize: '0.875rem', color: '#94a3b8', fontWeight: '500' }}>{item.desc}</p>
+                                    </div>
+                                    <div onClick={() => handleToggle(item.id as keyof typeof toggles)} style={{ width: '50px', height: '26px', backgroundColor: toggles[item.id as keyof typeof toggles] ? 'var(--primary)' : '#cbd5e1', borderRadius: '13px', position: 'relative', cursor: 'pointer', transition: '0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}>
+                                        <div style={{ width: '20px', height: '20px', backgroundColor: 'white', borderRadius: '50%', position: 'absolute', top: '3px', left: toggles[item.id as keyof typeof toggles] ? '27px' : '3px', transition: '0.3s cubic-bezier(0.4, 0, 0.2, 1)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <p style={{ fontSize: '0.9rem', fontWeight: '600' }}>Alertes Stock</p>
-                                <div onClick={() => handleToggle('stockAlerts')} style={{ width: '40px', height: '20px', backgroundColor: toggles.stockAlerts ? 'var(--primary)' : '#cbd5e1', borderRadius: '10px', position: 'relative', cursor: 'pointer', transition: '0.2s' }}>
-                                    <div style={{ width: '16px', height: '16px', backgroundColor: 'white', borderRadius: '50%', position: 'absolute', top: '2px', left: toggles.stockAlerts ? '22px' : '2px', transition: '0.2s' }}></div>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 );
 
             case 'store':
                 return (
-                    <div className="card">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', paddingBottom: '0.75rem', borderBottom: '1px solid var(--card-border)' }}>
-                            <h2 style={{ fontSize: '1.125rem', fontWeight: '700' }}>Ma Boutique</h2>
-                            <button className="btn btn-primary" onClick={handleSave} style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>OK</button>
+                    <div className="card" style={{ border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                            <h2 style={cardHeaderStyle}>Configuration de la Boutique</h2>
+                            <button className="btn btn-primary" onClick={handleSave}>Mettre à jour</button>
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                <label style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748b' }}>Nom Enseigne</label>
-                                <input type="text" value={formData.shopName} onChange={(e) => setFormData({ ...formData, shopName: e.target.value })} style={{ padding: '0.6rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)', outline: 'none' }} />
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <label style={labelStyle}>Nom de l'Enseigne</label>
+                                    <input type="text" value={formData.shopName} onChange={(e) => setFormData({ ...formData, shopName: e.target.value })} style={inputStyle} />
+                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <label style={labelStyle}>Numéro de téléphone</label>
+                                    <input type="text" value={formData.shopPhone} onChange={(e) => setFormData({ ...formData, shopPhone: e.target.value })} style={inputStyle} />
+                                </div>
                             </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                <label style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748b' }}>Téléphone</label>
-                                <input type="text" value={formData.shopPhone} onChange={(e) => setFormData({ ...formData, shopPhone: e.target.value })} style={{ padding: '0.6rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)', outline: 'none' }} />
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <label style={labelStyle}>NINEA / Registre du Commerce</label>
+                                <input type="text" value={formData.shopNinea} onChange={(e) => setFormData({ ...formData, shopNinea: e.target.value })} style={inputStyle} />
                             </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                                <label style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748b' }}>Adresse</label>
-                                <textarea value={formData.shopAddress} onChange={(e) => setFormData({ ...formData, shopAddress: e.target.value })} style={{ padding: '0.6rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)', outline: 'none', height: '60px', resize: 'none' }} />
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <label style={labelStyle}>Adresse de la Boutique</label>
+                                <textarea value={formData.shopAddress} onChange={(e) => setFormData({ ...formData, shopAddress: e.target.value })} style={{ ...inputStyle, height: '100px', resize: 'none' }} />
                             </div>
                         </div>
                     </div>
@@ -160,11 +191,28 @@ export default function Settings() {
 
             case 'language':
                 return (
-                    <div className="card">
-                        <h2 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid var(--card-border)' }}>Langue</h2>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                            {['FR', 'WO', 'EN'].map(lang => (
-                                <button key={lang} style={{ flex: 1, minWidth: '60px', padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)', backgroundColor: lang === 'FR' ? 'rgba(16, 185, 129, 0.1)' : 'white', color: lang === 'FR' ? 'var(--primary)' : 'inherit', fontWeight: '700', cursor: 'pointer' }}>{lang}</button>
+                    <div className="card" style={{ border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)' }}>
+                        <h2 style={cardHeaderStyle}>Langue de l'Interface</h2>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem' }}>
+                            {[
+                                { code: 'FR', label: 'Français', sub: 'Langue par défaut' },
+                                { code: 'WO', label: 'Wolof', sub: 'Pataas' },
+                                { code: 'EN', label: 'English', sub: 'International' }
+                            ].map(lang => (
+                                <button key={lang.code} style={{
+                                    padding: '1.5rem',
+                                    borderRadius: '1rem',
+                                    border: lang.code === 'FR' ? '2px solid var(--primary)' : '1px solid #e2e8f0',
+                                    backgroundColor: lang.code === 'FR' ? '#ecfdf5' : 'white',
+                                    color: lang.code === 'FR' ? 'var(--primary)' : '#475569',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s',
+                                    textAlign: 'center'
+                                }}>
+                                    <p style={{ fontSize: '1.25rem', fontWeight: '900', marginBottom: '0.25rem' }}>{lang.code}</p>
+                                    <p style={{ fontSize: '0.85rem', fontWeight: '700' }}>{lang.label}</p>
+                                    <p style={{ fontSize: '0.7rem', opacity: 0.7 }}>{lang.sub}</p>
+                                </button>
                             ))}
                         </div>
                     </div>
@@ -172,28 +220,45 @@ export default function Settings() {
 
             case 'appearance':
                 return (
-                    <div className="card">
-                        <h2 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid var(--card-border)' }}>Apparence</h2>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-                                    <Moon size={20} />
-                                    <p style={{ fontSize: '0.9rem', fontWeight: '600' }}>Mode Sombre</p>
+                    <div className="card" style={{ border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)' }}>
+                        <h2 style={cardHeaderStyle}>Personnalisation Visuelle</h2>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem', backgroundColor: '#f8fafc', borderRadius: '1rem' }}>
+                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                    <div className="flex-center" style={{ width: '40px', height: '40px', backgroundColor: '#0f172a', borderRadius: '0.75rem', color: 'white' }}>
+                                        <Moon size={20} />
+                                    </div>
+                                    <div>
+                                        <p style={{ fontSize: '1rem', fontWeight: '800', color: '#0f172a' }}>Mode Sombre automatique</p>
+                                        <p style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: '500' }}>Passer l'interface en mode nuit.</p>
+                                    </div>
                                 </div>
-                                <div onClick={() => setDarkMode(!darkMode)} style={{ width: '40px', height: '20px', backgroundColor: darkMode ? '#0f172a' : '#cbd5e1', borderRadius: '10px', position: 'relative', cursor: 'pointer', transition: '0.2s' }}>
-                                    <div style={{ width: '16px', height: '16px', backgroundColor: 'white', borderRadius: '50%', position: 'absolute', top: '2px', left: darkMode ? '22px' : '2px', transition: '0.2s' }}></div>
+                                <div onClick={() => setDarkMode(!darkMode)} style={{ width: '50px', height: '26px', backgroundColor: darkMode ? '#0f172a' : '#cbd5e1', borderRadius: '13px', position: 'relative', cursor: 'pointer', transition: '0.2s' }}>
+                                    <div style={{ width: '20px', height: '20px', backgroundColor: 'white', borderRadius: '50%', position: 'absolute', top: '3px', left: darkMode ? '27px' : '3px', transition: '0.2s' }}></div>
                                 </div>
                             </div>
                             <div>
-                                <p style={{ fontSize: '0.85rem', fontWeight: '600', marginBottom: '0.75rem' }}>Couleur de Marque</p>
-                                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                                <h4 style={{ fontSize: '1rem', fontWeight: '800', color: '#1e293b', marginBottom: '1.25rem' }}>Couleur Thème</h4>
+                                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', padding: '1.25rem', backgroundColor: '#f8fafc', borderRadius: '1rem' }}>
                                     {['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444'].map(color => (
                                         <div
                                             key={color}
                                             onClick={() => setPrimaryColor(color)}
-                                            style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: color, cursor: 'pointer', border: primaryColor === color ? '3px solid #cbd5e1' : 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                            style={{
+                                                width: '44px',
+                                                height: '44px',
+                                                borderRadius: '1rem',
+                                                backgroundColor: color,
+                                                cursor: 'pointer',
+                                                border: primaryColor === color ? '4px solid white' : 'none',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                boxShadow: primaryColor === color ? `0 0 0 2px ${color}` : 'none',
+                                                transition: 'all 0.2s'
+                                            }}
                                         >
-                                            {primaryColor === color && <Check size={14} color="white" />}
+                                            {primaryColor === color && <Check size={20} color="white" />}
                                         </div>
                                     ))}
                                 </div>
@@ -207,54 +272,58 @@ export default function Settings() {
         }
     };
 
-    const NavItem = ({ id, icon: Icon, label }: { id: string, icon: any, label: string }) => {
-        const isActive = activeSection === id;
-        return (
-            <li style={{ marginBottom: '0.3rem' }}>
-                <button onClick={() => setActiveSection(id)} style={{ width: '100%', textAlign: 'left', padding: '0.6rem 0.75rem', borderRadius: 'var(--radius-md)', backgroundColor: isActive ? 'var(--primary)' : 'transparent', color: isActive ? 'white' : 'var(--foreground)', border: 'none', fontWeight: isActive ? '600' : '500', display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer', fontSize: '0.85rem' }}>
-                    <Icon size={16} /> {label}
-                </button>
-            </li>
-        );
+            default:
+    return null;
+}
     };
 
+const NavItem = ({ id, icon: Icon, label }: { id: string, icon: any, label: string }) => {
+    const isActive = activeSection === id;
     return (
-        <main style={{ marginLeft: 'var(--sidebar-width)', minHeight: '100vh', backgroundColor: 'var(--background)', transition: 'margin-left 0.3s' }}>
-            <Header title="Paramètres" />
-            <div style={{ padding: '1rem', maxWidth: '1100px', margin: '0 auto' }}>
-                <div className="settings-layout">
-                    <div className="card settings-nav" style={{ padding: '0.75rem', height: 'fit-content' }}>
-                        <h3 style={{ fontSize: '0.65rem', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', marginBottom: '0.75rem', paddingLeft: '0.5rem', letterSpacing: '0.05em' }}>Compte</h3>
-                        <ul style={{ listStyle: 'none', marginBottom: '1rem' }}>
-                            <NavItem id="profile" icon={User} label="Profil" />
-                            <NavItem id="security" icon={Lock} label="Sécurité" />
-                            <NavItem id="notifications" icon={Bell} label="Notifs" />
-                        </ul>
-                        <h3 style={{ fontSize: '0.65rem', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', marginBottom: '0.75rem', paddingLeft: '0.5rem', letterSpacing: '0.05em' }}>App</h3>
-                        <ul style={{ listStyle: 'none' }}>
-                            <NavItem id="store" icon={Store} label="Boutique" />
-                            <NavItem id="language" icon={Globe} label="Langue" />
-                            <NavItem id="appearance" icon={Moon} label="Apparence" />
-                        </ul>
-                    </div>
-                    <div style={{ transition: 'all 0.3s ease' }}>{renderContent()}</div>
-                </div>
-            </div>
+        <li style={{ marginBottom: '0.3rem' }}>
+            <button onClick={() => setActiveSection(id)} style={{ width: '100%', textAlign: 'left', padding: '0.6rem 0.75rem', borderRadius: 'var(--radius-md)', backgroundColor: isActive ? 'var(--primary)' : 'transparent', color: isActive ? 'white' : 'var(--foreground)', border: 'none', fontWeight: isActive ? '600' : '500', display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer', fontSize: '0.85rem' }}>
+                <Icon size={16} /> {label}
+            </button>
+        </li>
+    );
+};
 
-            <style jsx>{`
+return (
+    <main style={{ minHeight: '100vh', backgroundColor: '#f1f5f9', transition: 'margin-left 0.3s' }}>
+        <Header title="Paramètres" />
+        <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
+            <div className="settings-layout">
+                <div className="card settings-nav" style={{ padding: '1rem', height: 'fit-content', border: 'none', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+                    <h3 style={{ fontSize: '0.75rem', fontWeight: '900', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '1rem', paddingLeft: '0.75rem', letterSpacing: '0.1em' }}>Compte</h3>
+                    <ul style={{ listStyle: 'none', marginBottom: '1.5rem' }}>
+                        <NavItem id="profile" icon={User} label="Profil Utilisateur" />
+                        <NavItem id="security" icon={Lock} label="Sécurité & Accès" />
+                        <NavItem id="notifications" icon={Bell} label="Notifications" />
+                    </ul>
+                    <h3 style={{ fontSize: '0.75rem', fontWeight: '900', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '1rem', paddingLeft: '0.75rem', letterSpacing: '0.1em' }}>Application</h3>
+                    <ul style={{ listStyle: 'none' }}>
+                        <NavItem id="store" icon={Store} label="Ma Boutique" />
+                        <NavItem id="language" icon={Globe} label="Langue & Région" />
+                        <NavItem id="appearance" icon={Moon} label="Apparence" />
+                    </ul>
+                </div>
+                <div style={{ transition: 'all 0.3s ease' }}>{renderContent()}</div>
+            </div>
+        </div>
+
+        <style jsx>{`
         .settings-layout {
           display: grid;
-          grid-template-columns: 240px 1fr;
-          gap: 1.5rem;
+          grid-template-columns: 280px 1fr;
+          gap: 2rem;
         }
         @media (max-width: 1024px) {
-          main { margin-left: 0 !important; }
           .settings-layout {
             grid-template-columns: 1fr;
-            gap: 1rem;
+            gap: 1.5rem;
           }
         }
       `}</style>
-        </main>
-    );
+    </main>
+);
 }
