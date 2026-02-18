@@ -272,46 +272,41 @@ export default function Settings() {
         }
     };
 
-            default:
-    return null;
-}
+    const NavItem = ({ id, icon: Icon, label }: { id: string, icon: any, label: string }) => {
+        const isActive = activeSection === id;
+        return (
+            <li style={{ marginBottom: '0.3rem' }}>
+                <button onClick={() => setActiveSection(id)} style={{ width: '100%', textAlign: 'left', padding: '0.6rem 0.75rem', borderRadius: 'var(--radius-md)', backgroundColor: isActive ? 'var(--primary)' : 'transparent', color: isActive ? 'white' : 'var(--foreground)', border: 'none', fontWeight: isActive ? '600' : '500', display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer', fontSize: '0.85rem' }}>
+                    <Icon size={16} /> {label}
+                </button>
+            </li>
+        );
     };
 
-const NavItem = ({ id, icon: Icon, label }: { id: string, icon: any, label: string }) => {
-    const isActive = activeSection === id;
     return (
-        <li style={{ marginBottom: '0.3rem' }}>
-            <button onClick={() => setActiveSection(id)} style={{ width: '100%', textAlign: 'left', padding: '0.6rem 0.75rem', borderRadius: 'var(--radius-md)', backgroundColor: isActive ? 'var(--primary)' : 'transparent', color: isActive ? 'white' : 'var(--foreground)', border: 'none', fontWeight: isActive ? '600' : '500', display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer', fontSize: '0.85rem' }}>
-                <Icon size={16} /> {label}
-            </button>
-        </li>
-    );
-};
-
-return (
-    <main style={{ minHeight: '100vh', backgroundColor: '#f1f5f9', transition: 'margin-left 0.3s' }}>
-        <Header title="Paramètres" />
-        <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-            <div className="settings-layout">
-                <div className="card settings-nav" style={{ padding: '1rem', height: 'fit-content', border: 'none', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
-                    <h3 style={{ fontSize: '0.75rem', fontWeight: '900', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '1rem', paddingLeft: '0.75rem', letterSpacing: '0.1em' }}>Compte</h3>
-                    <ul style={{ listStyle: 'none', marginBottom: '1.5rem' }}>
-                        <NavItem id="profile" icon={User} label="Profil Utilisateur" />
-                        <NavItem id="security" icon={Lock} label="Sécurité & Accès" />
-                        <NavItem id="notifications" icon={Bell} label="Notifications" />
-                    </ul>
-                    <h3 style={{ fontSize: '0.75rem', fontWeight: '900', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '1rem', paddingLeft: '0.75rem', letterSpacing: '0.1em' }}>Application</h3>
-                    <ul style={{ listStyle: 'none' }}>
-                        <NavItem id="store" icon={Store} label="Ma Boutique" />
-                        <NavItem id="language" icon={Globe} label="Langue & Région" />
-                        <NavItem id="appearance" icon={Moon} label="Apparence" />
-                    </ul>
+        <main style={{ minHeight: '100vh', backgroundColor: '#f1f5f9', transition: 'margin-left 0.3s' }}>
+            <Header title="Paramètres" />
+            <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
+                <div className="settings-layout">
+                    <div className="card settings-nav" style={{ padding: '1rem', height: 'fit-content', border: 'none', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+                        <h3 style={{ fontSize: '0.75rem', fontWeight: '900', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '1rem', paddingLeft: '0.75rem', letterSpacing: '0.1em' }}>Compte</h3>
+                        <ul style={{ listStyle: 'none', marginBottom: '1.5rem' }}>
+                            <NavItem id="profile" icon={User} label="Profil Utilisateur" />
+                            <NavItem id="security" icon={Lock} label="Sécurité & Accès" />
+                            <NavItem id="notifications" icon={Bell} label="Notifications" />
+                        </ul>
+                        <h3 style={{ fontSize: '0.75rem', fontWeight: '900', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '1rem', paddingLeft: '0.75rem', letterSpacing: '0.1em' }}>Application</h3>
+                        <ul style={{ listStyle: 'none' }}>
+                            <NavItem id="store" icon={Store} label="Ma Boutique" />
+                            <NavItem id="language" icon={Globe} label="Langue & Région" />
+                            <NavItem id="appearance" icon={Moon} label="Apparence" />
+                        </ul>
+                    </div>
+                    <div style={{ transition: 'all 0.3s ease' }}>{renderContent()}</div>
                 </div>
-                <div style={{ transition: 'all 0.3s ease' }}>{renderContent()}</div>
             </div>
-        </div>
 
-        <style jsx>{`
+            <style jsx>{`
         .settings-layout {
           display: grid;
           grid-template-columns: 280px 1fr;
@@ -324,6 +319,6 @@ return (
           }
         }
       `}</style>
-    </main>
-);
+        </main>
+    );
 }
